@@ -17,7 +17,7 @@ public class StudentDataService {
 
             bufferedReader.readLine();
 
-            for(int i = 0; i < studentCount; i++){
+            for(int i = 1; i < studentCount; i++){
                 newStudent = new Student();
                 lineData = bufferedReader.readLine().split(",|\\r\\n|\\n");
                 newStudent.setStudentID(Integer.parseInt(lineData[0]));
@@ -51,8 +51,8 @@ public class StudentDataService {
         return allStudents;
     }
 
-    private int countStudents(String file){
-        int count = 0;
+    private Integer countStudents(String file){
+        Integer count = 0;
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(this.INPUT_FILE))){
             while (bufferedReader.readLine() != null){
                 count++;
@@ -62,6 +62,22 @@ public class StudentDataService {
             System.out.println("Student counting error: " + e.getMessage());
         }
         return count;
+    }
+
+    private void countCourses(){
+        numCourses = 0;
+        String courseNames = "";
+        for(int i = 0; i < studentCount; i ++) {
+            if (allStudents[i] != null) {
+//            if the name of the course isn't in the string of course names
+//            it gets added and the course count goes up
+                if (!courseNames.contains(allStudents[i].getCourse())) {
+                    numCourses++;
+                    courseNames += ", " + allStudents[i].getCourse();
+                }
+            }
+        }
+        System.out.println(numCourses + " course rosters.");
     }
 
     //sorts all the students in the master list into their respective Course list
@@ -74,10 +90,11 @@ public class StudentDataService {
 //
 //    }
 
-//    void organize(){
-//        allStudents
-//
-//    }
+    void organize(){
+        readFile();
+        countCourses();
+
+    }
 
 //    void deleteFiles(String fileNames){
 //

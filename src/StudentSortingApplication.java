@@ -10,6 +10,6 @@ public class StudentSortingApplication {
 //        System.out.println(zack.toString());
 
         StudentDataService studentDataService = new StudentDataService();
-        studentDataService.readFile();
+        studentDataService.organize();
     }
 }
