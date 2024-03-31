@@ -2,44 +2,67 @@ import java.util.*;
 import java.io.*;
 
 public class StudentDataService {
-    private List<Student> allStudents = new ArrayList<Student>();
+    private Student[] allStudents;
     private List<Course> allCourses = new ArrayList<Course>();
     private String outputFiles;
-    private Integer numCourses = 3; //hardcoded for now, add in assigning based on unique course IDs?
+    private Integer numCourses = 3; //hardcoded for now, build in assigning based on unique course IDs?
     private String INPUT_FILE = "student-master-list.csv";
-    Integer studentCount;
+    private Integer studentCount = countStudents(INPUT_FILE);
 
-    List<Student> readFile(){
-        try (Scanner scanner = new Scanner(new File(INPUT_FILE))){
-//            I think this delimiter *should* work for both Windows and Unix csv
-//            but have only tested it on Windows
-            scanner.useDelimiter(",|\\r\\n|\\n");
-            scanner.nextLine();
+    Student[] readFile(){
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(INPUT_FILE))){
+            allStudents = new Student[studentCount];
             Student newStudent;
+            String[] lineData;
 
-            while(scanner.hasNext()){
+            bufferedReader.readLine();
+
+            for(int i = 0; i < studentCount; i++){
                 newStudent = new Student();
-                newStudent.setStudentID(Integer.parseInt(scanner.next()));
-                newStudent.setStudentName(scanner.next());
-                newStudent.setCourse(scanner.next());
-                newStudent.setGrade(Double.parseDouble(scanner.next()));
+                lineData = bufferedReader.readLine().split(",|\\r\\n|\\n");
+                newStudent.setStudentID(Integer.parseInt(lineData[0]));
+                newStudent.setStudentName(lineData[1]);
+                newStudent.setCourse(lineData[2]);
+                newStudent.setGrade(Double.parseDouble(lineData[3]));
                 System.out.println(newStudent.toString());
 
-                allStudents.add(newStudent);
+                allStudents[i] = newStudent;
             }
+//            I think this delimiter *should* work for both Windows and Unix csv
+//            but have only tested it on Windows
+//            scanner.useDelimiter(",|\\r\\n|\\n");
+//            scanner.nextLine();
+//            Student newStudent;
+//
+//            while(scanner.hasNext()){
+//                newStudent = new Student();
+//                newStudent.setStudentID(Integer.parseInt(scanner.next()));
+//                newStudent.setStudentName(scanner.next());
+//                newStudent.setCourse(scanner.next());
+//                newStudent.setGrade(Double.parseDouble(scanner.next()));
+//                System.out.println(newStudent.toString());
+//
+//                allStudents.add(newStudent);
+//            }
         }
-        catch(FileNotFoundException e){
+        catch(IOException e){
             System.out.println("File not found: " + e.getMessage());
         }
-
         return allStudents;
-
     }
 
-//    private static int countStudents(String file){
-//        int count = 0;
-//        {try()
-//    }
+    private int countStudents(String file){
+        int count = 0;
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(this.INPUT_FILE))){
+            while (bufferedReader.readLine() != null){
+                count++;
+            }
+        }
+        catch (IOException e){
+            System.out.println("Student counting error: " + e.getMessage());
+        }
+        return count;
+    }
 
     //sorts all the students in the master list into their respective Course list
 //    void courseSort(){
