@@ -10,6 +10,10 @@ public class StudentDataService {
     private Course[] allCourses = new Course[3];
 
     StudentDataService(){
+        allCourses[0] = new Course();
+        allCourses[1] = new Course();
+        allCourses[2] = new Course();
+
         allCourses[0].setCourseName("COMPSCI");
         allCourses[1].setCourseName("STAT");
         allCourses[2].setCourseName("APMTH");
@@ -70,30 +74,27 @@ public class StudentDataService {
         return count;
     }
 
-    private void courseCreate(){
+    private void createCourses(){
 //        Counts how many students are in each course so their Student array can be instantiated
         Integer compSciCount = 0;
         Integer apMathCount = 0;
         Integer statCount = 0;
         for (Student student : allStudents){
-            if (student.getCourse().contains("COMPSCI")){
-                compSciCount++;
-            }
-            else if (student.getCourse().contains("APMTH")){
-                apMathCount++;
-            }
-            else if (student.getCourse().contains("STAT")){
-                statCount++;
-            }
-            else{
-                System.out.println("Student in unknown course track.");
+            if (student != null) {
+                if (student.getCourse().contains("COMPSCI")) {
+                    compSciCount++;
+                } else if (student.getCourse().contains("APMTH")) {
+                    apMathCount++;
+                } else if (student.getCourse().contains("STAT")) {
+                    statCount++;
+                } else {
+                    System.out.println("Student in unknown course track.");
+                }
             }
         }
-        allCourses[0] = new Course();
+        System.out.println("CS: " +compSciCount + " AP: " + apMathCount + " STAT: " + statCount);
         allCourses[0].setRoster(new Student[compSciCount]);
-        allCourses[1] = new Course();
         allCourses[1].setRoster(new Student[apMathCount]);
-        allCourses[2] = new Course();
         allCourses[2].setRoster(new Student[statCount]);
     }
 
@@ -117,8 +118,7 @@ public class StudentDataService {
 
     void organize(){
         readFile();
-//        countCourses();
-
+        createCourses();
     }
 
 //    void deleteFiles(String fileNames){
