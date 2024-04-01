@@ -3,7 +3,7 @@ import java.util.*;
 public class Course {
     private String courseName;
     private Student[] roster;
-    private Integer classSize;
+    private Integer courseSize;
 
     public String getCourseName() {
         return courseName;
@@ -21,12 +21,12 @@ public class Course {
         this.roster = roster;
     }
 
-    public Integer getClassSize() {
-        return classSize;
+    public Integer getCourseSize() {
+        return courseSize;
     }
 
-    public void setClassSize(Integer classSize) {
-        this.classSize = classSize;
+    public void setCourseSize(Integer courseSize) {
+        this.courseSize = courseSize;
     }
 
     //    private List<Student> roster = new ArrayList<Student>();

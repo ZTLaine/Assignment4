@@ -74,8 +74,9 @@ public class StudentDataService {
         return count;
     }
 
+//    Figures out the size of the array that'll be needed for each course
+//    and instantiates it
     private void createCourses(){
-//        Counts how many students are in each course so their Student array can be instantiated
         Integer compSciCount = 0;
         Integer apMathCount = 0;
         Integer statCount = 0;
@@ -94,8 +95,42 @@ public class StudentDataService {
         }
         System.out.println("CS: " +compSciCount + " AP: " + apMathCount + " STAT: " + statCount);
         allCourses[0].setRoster(new Student[compSciCount]);
+        allCourses[0].setCourseSize(compSciCount);
         allCourses[1].setRoster(new Student[apMathCount]);
+        allCourses[1].setCourseSize(apMathCount);
         allCourses[2].setRoster(new Student[statCount]);
+        allCourses[2].setCourseSize(statCount);
+    }
+
+    private void populateCourses(){
+        Integer compSciCount = 0;
+        Integer apMathCount = 0;
+        Integer statCount = 0;
+
+        for (Student student : allStudents){
+            //checking if the final student in each class has been added
+//            while(allCourses[0].getRoster()[allCourses[0].getClassSize()-1] == null &&
+//                    allCourses[1].getRoster()[allCourses[1].getClassSize()-1] == null &&
+//                    allCourses[2].getRoster()[allCourses[2].getClassSize()-1] == null) {
+//            I decided that was stupid and counters would be simpler
+            while(compSciCount < allCourses[0].getCourseSize() &&
+                    apMathCount < allCourses[1].getCourseSize() &&
+                    statCount < allCourses[2].getCourseSize()){
+                if (student != null) {
+                    if (student.getCourse().contains("COMPSCI")) {
+                        allCourses[0].getRoster()[compSciCount] = student;
+                        System.out.println("CS student added to course.");
+                        compSciCount++;
+                    } else if (student.getCourse().contains("APMTH")) {
+
+                    } else if (student.getCourse().contains("STAT")) {
+
+                    } else {
+                        System.out.println("Student in unknown course track.");
+                    }
+                }
+            }
+        }
     }
 
 //    This counts the actual separate courses, not the tracks
@@ -119,6 +154,7 @@ public class StudentDataService {
     void organize(){
         readFile();
         createCourses();
+        populateCourses();
     }
 
 //    void deleteFiles(String fileNames){
