@@ -4,14 +4,14 @@ public class Student {
     private String course;
     private Double grade;
 
+    public Student() {
+    }
+
     public Student(Integer studentID, String studentName, String course, Double grade) {
         this.studentID = studentID;
         this.studentName = studentName;
         this.course = course;
         this.grade = grade;
-    }
-
-    public Student() {
     }
 
     public Integer getStudentID() {

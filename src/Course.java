@@ -29,22 +29,12 @@ public class Course {
         this.courseSize = courseSize;
     }
 
-    //    private List<Student> roster = new ArrayList<Student>();
-
-//    public Course(List<Student> roster) {
-//        this.roster.addAll(roster);
-//        courseName = roster.getFirst().getCourse();
-//    }
-//
-//    public List<Student> getRoster() {
-//        return roster;
-//    }
-//
-//    public void setRoster(List<Student> roster) {
-//        this.roster = roster;
-//    }
-//
-//    public void addToCourse(Student student){
-//        roster.add(student);
-//    }
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseName: '" + courseName + '\'' +
+                ", courseSize: " + courseSize +
+                ", roster: " + Arrays.toString(roster) +
+                '}';
+    }
 }

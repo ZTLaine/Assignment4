@@ -107,29 +107,36 @@ public class StudentDataService {
         Integer apMathCount = 0;
         Integer statCount = 0;
 
-        for (Student student : allStudents){
-            //checking if the final student in each class has been added
-//            while(allCourses[0].getRoster()[allCourses[0].getClassSize()-1] == null &&
-//                    allCourses[1].getRoster()[allCourses[1].getClassSize()-1] == null &&
-//                    allCourses[2].getRoster()[allCourses[2].getClassSize()-1] == null) {
-//            I decided that was stupid and counters would be simpler
-            while(compSciCount < allCourses[0].getCourseSize() &&
-                    apMathCount < allCourses[1].getCourseSize() &&
-                    statCount < allCourses[2].getCourseSize()){
+//        checking if the final student in each class has been added
+//        while(allCourses[0].getRoster()[allCourses[0].getClassSize()-1] == null &&
+//                allCourses[1].getRoster()[allCourses[1].getClassSize()-1] == null &&
+//                allCourses[2].getRoster()[allCourses[2].getClassSize()-1] == null) {
+//        I decided that was stupid and counters would be simpler
+        while(compSciCount < allCourses[0].getCourseSize() &&
+                apMathCount < allCourses[1].getCourseSize() &&
+                statCount < allCourses[2].getCourseSize()){
+            for (Student student : allStudents){
                 if (student != null) {
                     if (student.getCourse().contains("COMPSCI")) {
                         allCourses[0].getRoster()[compSciCount] = student;
                         System.out.println("CS student added to course.");
                         compSciCount++;
                     } else if (student.getCourse().contains("APMTH")) {
-
+                        allCourses[1].getRoster()[apMathCount] = student;
+                        System.out.println("AP MATH student added to course.");
+                        apMathCount++;
                     } else if (student.getCourse().contains("STAT")) {
-
+                        allCourses[2].getRoster()[statCount] = student;
+                        System.out.println("STAT student added to course.");
+                        statCount++;
                     } else {
                         System.out.println("Student in unknown course track.");
                     }
                 }
             }
+        }
+        for (Course course: allCourses){
+            System.out.println(course.toString());
         }
     }
 
