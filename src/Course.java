@@ -39,7 +39,8 @@ public class Course {
     }
 
     //sorts the course roster by grade
-    private void gradeSort(){
-
+    public void gradeSort(){
+        Arrays.sort(roster, Comparator.comparingDouble(Student::getGrade).reversed());
+//        Arrays.sort(roster, Comparator.reverseOrder());
     }
 }

@@ -1,17 +1,17 @@
-public class Student {
+public class Student implements Comparable{
     private Integer studentID;
     private String studentName;
     private String course;
     private Double grade;
-
-    public Student() {
-    }
 
     public Student(Integer studentID, String studentName, String course, Double grade) {
         this.studentID = studentID;
         this.studentName = studentName;
         this.course = course;
         this.grade = grade;
+    }
+
+    public Student() {
     }
 
     public Integer getStudentID() {
@@ -54,5 +54,10 @@ public class Student {
                 ", course: '" + course + '\'' +
                 ", grade: " + grade +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }

@@ -1,11 +1,11 @@
 import java.util.*;
-import java.io.*;
 
 public class StudentDataService {
     private Student[] allStudents;
     private Integer numCourses = 3; //courses is an inaccurate descriptor, these are like...educational tracks
     private Integer studentCount;
     private Course[] allCourses = new Course[3];
+
 
     public Student[] getAllStudents() {
         return allStudents;
@@ -52,49 +52,6 @@ public class StudentDataService {
         allCourses[1].setCourseName("STAT");
         allCourses[2].setCourseName("APMTH");
     }
-
-    //refactor into FileService with writeFile(String[])
-//    Student[] readFile(){
-//        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(INPUT_FILE))){
-//            allStudents = new Student[studentCount];
-//            Student newStudent;
-//            String[] lineData;
-//
-//            header = bufferedReader.readLine();
-//
-//            for(int i = 1; i < studentCount; i++){
-//                newStudent = new Student();
-//                lineData = bufferedReader.readLine().split(",|\\r\\n|\\n");
-//                newStudent.setStudentID(Integer.parseInt(lineData[0]));
-//                newStudent.setStudentName(lineData[1]);
-//                newStudent.setCourse(lineData[2]);
-//                newStudent.setGrade(Double.parseDouble(lineData[3]));
-//                System.out.println(newStudent.toString());
-//
-//                allStudents[i] = newStudent;
-//            }
-////            I think this delimiter *should* work for both Windows and Unix csv
-////            but have only tested it on Windows
-////            scanner.useDelimiter(",|\\r\\n|\\n");
-////            scanner.nextLine();
-////            Student newStudent;
-////
-////            while(scanner.hasNext()){
-////                newStudent = new Student();
-////                newStudent.setStudentID(Integer.parseInt(scanner.next()));
-////                newStudent.setStudentName(scanner.next());
-////                newStudent.setCourse(scanner.next());
-////                newStudent.setGrade(Double.parseDouble(scanner.next()));
-////                System.out.println(newStudent.toString());
-////
-////                allStudents.add(newStudent);
-////            }
-//        }
-//        catch(IOException e){
-//            System.out.println("File not found: " + e.getMessage());
-//        }
-//        return allStudents;
-//    }
 
 //    Figures out the size of the array that'll be needed for each course
 //    and instantiates it
@@ -143,15 +100,12 @@ public class StudentDataService {
             if (student != null) {
                 if (student.getCourse().contains("COMPSCI")) {
                     allCourses[0].getRoster()[compSciCount] = student;
-                    System.out.println("CS student added to course.");
                     compSciCount++;
                 } else if (student.getCourse().contains("APMTH")) {
                     allCourses[1].getRoster()[apMathCount] = student;
-                    System.out.println("AP MATH student added to course.");
                     apMathCount++;
                 } else if (student.getCourse().contains("STAT")) {
                     allCourses[2].getRoster()[statCount] = student;
-                    System.out.println("STAT student added to course.");
                     statCount++;
                 } else {
                     System.out.println("Student in unknown course track.");
@@ -188,9 +142,11 @@ public class StudentDataService {
         fileService.readFile(this);
         createCourses();
         populateCourses();
-    }
 
-//    void deleteFiles(String fileNames){
-//
-//    }
+        for(Course course : allCourses){
+            course.gradeSort();
+            System.out.println(course.toString());
+            System.out.println("~~~");
+        }
+    }
 }
