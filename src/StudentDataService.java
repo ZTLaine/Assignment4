@@ -3,11 +3,12 @@ import java.io.*;
 
 public class StudentDataService {
     private Student[] allStudents;
-    private String outputFiles;
     private Integer numCourses = 3; //courses is an inaccurate descriptor, these are like...educational tracks
     private String INPUT_FILE = "student-master-list.csv";
+    private String OUTPUT_FILE = "course"; //don't forget to +counter to name them right
     private Integer studentCount = countStudents(INPUT_FILE);
     private Course[] allCourses = new Course[3];
+    private String header;
 
     StudentDataService(){
         allCourses[0] = new Course();
@@ -19,13 +20,14 @@ public class StudentDataService {
         allCourses[2].setCourseName("APMTH");
     }
 
+    //refactor into fileService with writeFile(String[])
     Student[] readFile(){
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(INPUT_FILE))){
             allStudents = new Student[studentCount];
             Student newStudent;
             String[] lineData;
 
-            bufferedReader.readLine();
+            header = bufferedReader.readLine();
 
             for(int i = 1; i < studentCount; i++){
                 newStudent = new Student();
@@ -102,6 +104,7 @@ public class StudentDataService {
         allCourses[2].setCourseSize(statCount);
     }
 
+//    Puts the relevant students into their course roster
     private void populateCourses(){
         Integer compSciCount = 0;
         Integer apMathCount = 0;
@@ -112,29 +115,30 @@ public class StudentDataService {
 //                allCourses[1].getRoster()[allCourses[1].getClassSize()-1] == null &&
 //                allCourses[2].getRoster()[allCourses[2].getClassSize()-1] == null) {
 //        I decided that was stupid and counters would be simpler
-        while(compSciCount < allCourses[0].getCourseSize() &&
-                apMathCount < allCourses[1].getCourseSize() &&
-                statCount < allCourses[2].getCourseSize()){
-            for (Student student : allStudents){
-                if (student != null) {
-                    if (student.getCourse().contains("COMPSCI")) {
-                        allCourses[0].getRoster()[compSciCount] = student;
-                        System.out.println("CS student added to course.");
-                        compSciCount++;
-                    } else if (student.getCourse().contains("APMTH")) {
-                        allCourses[1].getRoster()[apMathCount] = student;
-                        System.out.println("AP MATH student added to course.");
-                        apMathCount++;
-                    } else if (student.getCourse().contains("STAT")) {
-                        allCourses[2].getRoster()[statCount] = student;
-                        System.out.println("STAT student added to course.");
-                        statCount++;
-                    } else {
-                        System.out.println("Student in unknown course track.");
-                    }
+//        while(compSciCount < allCourses[0].getCourseSize() &&
+//                apMathCount < allCourses[1].getCourseSize() &&
+//                statCount < allCourses[2].getCourseSize()){
+//        I should use a for loop what am I doing
+        for (Student student : allStudents){
+            if (student != null) {
+                if (student.getCourse().contains("COMPSCI")) {
+                    allCourses[0].getRoster()[compSciCount] = student;
+                    System.out.println("CS student added to course.");
+                    compSciCount++;
+                } else if (student.getCourse().contains("APMTH")) {
+                    allCourses[1].getRoster()[apMathCount] = student;
+                    System.out.println("AP MATH student added to course.");
+                    apMathCount++;
+                } else if (student.getCourse().contains("STAT")) {
+                    allCourses[2].getRoster()[statCount] = student;
+                    System.out.println("STAT student added to course.");
+                    statCount++;
+                } else {
+                    System.out.println("Student in unknown course track.");
                 }
             }
         }
+//        }
         for (Course course: allCourses){
             System.out.println(course.toString());
         }

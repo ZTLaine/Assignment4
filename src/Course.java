@@ -37,4 +37,9 @@ public class Course {
                 ", roster: " + Arrays.toString(roster) +
                 '}';
     }
+
+    //sorts the course roster by grade
+    private void gradeSort(){
+
+    }
 }
