@@ -148,5 +148,6 @@ public class StudentDataService {
             System.out.println(course.toString());
             System.out.println("~~~");
         }
+        fileService.writeFile(this);
     }
 }
