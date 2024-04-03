@@ -34,13 +34,20 @@ public class FileService {
     void writeFile(StudentDataService studentData){
         String fileName;
 
-        for(int i = 1; i <= studentData.getStudentCount(); i++){
+        for(int i = 1; i <= studentData.getNumCourses(); i++){
             fileName = OUTPUT_FILE + i + ".csv";
             try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))){
                 bufferedWriter.write(header);
-                //gets the toString of the course matching the counter
-                bufferedWriter.write(studentData.getAllCourses()[i-1].toString());
-
+                bufferedWriter.newLine();
+//                gets the toString of the course matching the counter
+//                bufferedWriter.write(studentData.getAllCourses()[i-1].toString());
+                for(Student student : studentData.getAllCourses()[i-1].getRoster()){
+                    bufferedWriter.write(student.getStudentID() + "," +
+                            student.getStudentName() + "," +
+                            student.getCourse() + "," +
+                            student.getGrade().intValue());
+                    bufferedWriter.newLine();
+                }
                 System.out.println("Wrote to: " + fileName);
             } catch (IOException e) {
                 System.out.println("Problem writing file: " + fileName);
