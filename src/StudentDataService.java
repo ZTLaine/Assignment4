@@ -72,7 +72,6 @@ public class StudentDataService {
                 }
             }
         }
-        System.out.println("CS: " +compSciCount + " AP: " + apMathCount + " STAT: " + statCount);
         allCourses[0].setRoster(new Student[compSciCount]);
         allCourses[0].setCourseSize(compSciCount);
         allCourses[1].setRoster(new Student[apMathCount]);
@@ -87,15 +86,6 @@ public class StudentDataService {
         Integer apMathCount = 0;
         Integer statCount = 0;
 
-//        checking if the final student in each class has been added
-//        while(allCourses[0].getRoster()[allCourses[0].getClassSize()-1] == null &&
-//                allCourses[1].getRoster()[allCourses[1].getClassSize()-1] == null &&
-//                allCourses[2].getRoster()[allCourses[2].getClassSize()-1] == null) {
-//        I decided that was stupid and counters would be simpler
-//        while(compSciCount < allCourses[0].getCourseSize() &&
-//                apMathCount < allCourses[1].getCourseSize() &&
-//                statCount < allCourses[2].getCourseSize()){
-//        I should use a for loop what am I doing
         for (Student student : allStudents){
             if (student != null) {
                 if (student.getCourse().contains("COMPSCI")) {
@@ -112,29 +102,7 @@ public class StudentDataService {
                 }
             }
         }
-//        }
-        for (Course course: allCourses){
-            System.out.println(course.toString());
-        }
     }
-
-//    This counts the actual separate courses, not the tracks
-//            so it's not actually relevant oops
-//    private void countCourses(){
-//        numCourses = 0;
-//        String courseNames = "";
-//        for(int i = 0; i < studentCount; i ++) {
-//            if (allStudents[i] != null) {
-////            if the name of the course isn't in the string of course names
-////            it gets added and the course count goes up
-//                if (!courseNames.contains(allStudents[i].getCourse())) {
-//                    numCourses++;
-//                    courseNames += ", " + allStudents[i].getCourse();
-//                }
-//            }
-//        }
-//        System.out.println(numCourses + " course rosters.");
-//    }
 
     void organize(){
         FileService fileService = new FileService();
@@ -145,8 +113,6 @@ public class StudentDataService {
 
         for(Course course : allCourses){
             course.gradeSort();
-            System.out.println(course.toString());
-            System.out.println("~~~");
         }
         fileService.writeFile(this);
     }

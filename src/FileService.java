@@ -2,7 +2,7 @@ import java.io.*;
 
 public class FileService {
     private final String INPUT_FILE = "student-master-list.csv";
-    private final String OUTPUT_FILE = "course"; //don't forget to +counter to name them right
+    private final String OUTPUT_FILE = "course";
     private String header;
 
     void readFile(StudentDataService studentData){
@@ -21,7 +21,6 @@ public class FileService {
                 newStudent.setStudentName(lineData[1]);
                 newStudent.setCourse(lineData[2]);
                 newStudent.setGrade(Double.parseDouble(lineData[3]));
-                System.out.println(newStudent.toString());
 
                 studentData.setStudent(newStudent, i);
             }
@@ -39,8 +38,7 @@ public class FileService {
             try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))){
                 bufferedWriter.write(header);
                 bufferedWriter.newLine();
-//                gets the toString of the course matching the counter
-//                bufferedWriter.write(studentData.getAllCourses()[i-1].toString());
+
                 for(Student student : studentData.getAllCourses()[i-1].getRoster()){
                     bufferedWriter.write(student.getStudentID() + "," +
                             student.getStudentName() + "," +
@@ -48,7 +46,6 @@ public class FileService {
                             student.getGrade().intValue());
                     bufferedWriter.newLine();
                 }
-                System.out.println("Wrote to: " + fileName);
             } catch (IOException e) {
                 System.out.println("Problem writing file: " + fileName);
             }
