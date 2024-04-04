@@ -1,3 +1,7 @@
+//  4/4/24
+//  Zack Laine
+//  Assignment 4
+
 import java.util.*;
 
 public class Course {
@@ -38,7 +42,6 @@ public class Course {
                 '}';
     }
 
-    //sorts the course roster by grade
     public void gradeSort(){
         Arrays.sort(roster, Comparator.comparingDouble(Student::getGrade).reversed());
     }

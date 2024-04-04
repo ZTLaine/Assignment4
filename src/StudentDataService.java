@@ -1,4 +1,6 @@
-import java.util.*;
+//  4/4/24
+//  Zack Laine
+//  Assignment 4
 
 public class StudentDataService {
     private Student[] allStudents;
@@ -72,15 +74,17 @@ public class StudentDataService {
                 }
             }
         }
-        allCourses[0].setRoster(new Student[compSciCount]);
-        allCourses[0].setCourseSize(compSciCount);
-        allCourses[1].setRoster(new Student[apMathCount]);
-        allCourses[1].setCourseSize(apMathCount);
-        allCourses[2].setRoster(new Student[statCount]);
-        allCourses[2].setCourseSize(statCount);
+
+        instantiateCourseArray(allCourses[0], compSciCount);
+        instantiateCourseArray(allCourses[1], apMathCount);
+        instantiateCourseArray(allCourses[2], statCount);
     }
 
-//    Puts the relevant students into their course roster
+    private void instantiateCourseArray(Course course, Integer count){
+        course.setRoster(new Student[count]);
+        course.setCourseSize(count);
+    }
+
     private void populateCourses(){
         Integer compSciCount = 0;
         Integer apMathCount = 0;

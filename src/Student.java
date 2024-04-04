@@ -1,3 +1,7 @@
+//  4/4/24
+//  Zack Laine
+//  Assignment 4
+
 public class Student {
     private Integer studentID;
     private String studentName;
@@ -55,9 +59,4 @@ public class Student {
                 ", grade: " + grade +
                 '}';
     }
-
-//    @Override
-//    public int compareTo(Object o) {
-//        return 0;
-//    }
 }
